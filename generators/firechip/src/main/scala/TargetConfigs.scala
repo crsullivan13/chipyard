@@ -229,6 +229,48 @@ class FireSimQuadRocketConfig extends Config(
   new WithFireSimConfigTweaks ++
   new chipyard.QuadRocketConfig)
 
+class FireSimQuadRocket4BankConfig extends Config(
+  new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 4L) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(capacityKB = 1024, nWays = 8) ++
+  new freechips.rocketchip.subsystem.WithNBanks(4) ++
+  new FireSimQuadRocketConfig)
+
+class FireSimQuadRocket2BankConfig extends Config(
+  new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 4L) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(capacityKB = 1024, nWays = 8) ++
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new FireSimQuadRocketConfig)
+
+class FireSim4MedBoomConfig extends Config(
+  new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 4L) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(capacityKB = 1024, nWays = 8) ++
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimConfigTweaks ++
+  new boom.common.WithNMediumBooms(4) ++
+  new chipyard.config.AbstractConfig)
+
+class FireSim4SmallBoomConfig extends Config(
+  new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 4L) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(capacityKB = 1024, nWays = 8) ++
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimConfigTweaks ++
+  new boom.common.WithNSmallBooms(4) ++
+  new chipyard.config.AbstractConfig)
+
+class FireSim4SmallBoom4BankConfig extends Config(
+  new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 4L) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(capacityKB = 1024, nWays = 8) ++
+  new freechips.rocketchip.subsystem.WithNBanks(4) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimConfigTweaks ++
+  new boom.common.WithNSmallBooms(4) ++
+  new chipyard.config.AbstractConfig)
+
 // A stripped down configuration that should fit on all supported hosts.
 // Flat to avoid having to reorganize the config class hierarchy to remove certain features
 class FireSimSmallSystemConfig extends Config(

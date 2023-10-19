@@ -12,7 +12,7 @@
 	url = https://github.com/ucb-bar/riscv-torture.git
 [submodule "generators/boom"]
 	path = generators/boom
-	url = https://github.com/riscv-boom/riscv-boom.git
+	url = https://github.com/crsullivan13/riscv-boom.git
 [submodule "generators/sifive-blocks"]
 	path = generators/sifive-blocks
 	url = https://github.com/chipsalliance/rocket-chip-blocks.git
@@ -130,3 +130,5 @@
 [submodule "generators/bar-fetchers"]
 	path = generators/bar-fetchers
 	url = https://github.com/ucb-bar/bar-fetchers.git
+[submodule "generators/rocket-chip"]
+	url = https://github.com/crsullivan13/rocket-chip.git
