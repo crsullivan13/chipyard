@@ -34,6 +34,19 @@ class WithMultiRoCCFromBuildRoCC(harts: Int*) extends Config((site, here, up) =>
   }
 })
 
+class WithMultiRoCCAccum(harts: Int*) extends Config(
+  new Config((site, here, up) => {
+    case MultiRoCCKey => {
+      up(MultiRoCCKey, site) ++ harts.distinct.map{ i =>
+        (i -> Seq((p: Parameters) => {
+          val accum = LazyModule(new AccumulatorExample(OpcodeSet.custom0)(p))
+          accum
+        }))
+      }
+    }
+  })
+)
+
 /**
  * Config fragment to add Hwachas to cores based on hart
  *

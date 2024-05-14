@@ -19,13 +19,19 @@ class LargeBoomConfig extends Config(
   new chipyard.config.WithSystemBusWidth(128) ++
   new chipyard.config.AbstractConfig)
 
-class MegaBoomConfig extends Config(
-  new boom.common.WithNMegaBooms(1) ++                           // mega boom config
+class MegaBoomDualConfig extends Config(
+  new boom.common.WithNMegaBooms(2) ++                           // mega boom config
   new chipyard.config.WithSystemBusWidth(128) ++
   new chipyard.config.AbstractConfig)
 
 class DualSmallBoomConfig extends Config(
   new boom.common.WithNSmallBooms(2) ++                          // 2 boom cores
+  new chipyard.config.AbstractConfig)
+
+class DualLargeBoomConfig extends Config(
+  new chipyard.config.WithNPerfCounters(6) ++
+  new boom.common.WithNLargeBooms(2) ++                          // 2 boom cores
+  new chipyard.config.WithSystemBusWidth(128) ++
   new chipyard.config.AbstractConfig)
 
 class Cloned64MegaBoomConfig extends Config(
