@@ -75,31 +75,14 @@ class MempressDualBoomConfig extends Config(
   new chipyard.config.WithNPerfCounters(6) ++
   new boom.common.WithNMediumBooms(2) ++
   new chipyard.config.AbstractConfig)
-  
-class MempressBLConfig extends Config(
-  new mempress.WithMemPress ++                                    // use Mempress (memory traffic generation) accelerator
-  new chipyard.config.WithExtMemIdBits(5) ++
-  new chipyard.config.WithSystemBusWidth(128) ++
-  new freechips.rocketchip.subsystem.WithNBigCores(2) ++
-  new boom.common.WithNLargeBooms(2) ++
-  new chipyard.config.AbstractConfig)
 
 class MempressMaxConfig extends Config(
   new mempress.WithMemPress ++                                    // use Mempress (memory traffic generation) accelerator
   new chipyard.config.WithExtMemIdBits(5) ++
   new chipyard.config.WithSystemBusWidth(128) ++
   new chipyard.config.WithNPerfCounters(6) ++
-  new freechips.rocketchip.subsystem.WithNBigCores(3) ++
+  new freechips.rocketchip.subsystem.WithNBigCores(2) ++
   new boom.common.WithNLargeBooms(1) ++
-  new chipyard.config.AbstractConfig)
-
-class MempressDualConfig extends Config(
-  new mempress.WithMemPress ++                                    // use Mempress (memory traffic generation) accelerator
-  new chipyard.config.WithExtMemIdBits(5) ++
-  new chipyard.config.WithSystemBusWidth(128) ++
-  new freechips.rocketchip.subsystem.WithNBanks(2) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=1024) ++
-  new boom.common.WithNLargeBooms(2) ++
   new chipyard.config.AbstractConfig)
 
 class MempressHetConfig extends Config(

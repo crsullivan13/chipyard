@@ -29,7 +29,6 @@ class DualSmallBoomConfig extends Config(
   new chipyard.config.AbstractConfig)
 
 class DualLargeBoomConfig extends Config(
-  new chipyard.config.WithNPerfCounters(6) ++
   new boom.common.WithNLargeBooms(2) ++                          // 2 boom cores
   new chipyard.config.WithSystemBusWidth(128) ++
   new chipyard.config.AbstractConfig)
