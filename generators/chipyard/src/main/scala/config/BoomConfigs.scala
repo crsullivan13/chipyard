@@ -8,6 +8,7 @@ import org.chipsalliance.cde.config.{Config}
 
 class SmallBoomConfig extends Config(
   new boom.common.WithNSmallBooms(1) ++                          // small boom config
+  new chipyard.config.WithSystemBusWidth(128) ++
   new chipyard.config.AbstractConfig)
 
 class MediumBoomConfig extends Config(
