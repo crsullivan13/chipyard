@@ -13,6 +13,12 @@ class SmallBoomConfig extends Config(
 
 class MediumBoomConfig extends Config(
   new boom.common.WithNMediumBooms(1) ++                         // medium boom config
+  new chipyard.config.WithSystemBusWidth(128) ++
+  new chipyard.config.AbstractConfig)
+
+class QuadMediumBoomConfig extends Config(
+  new boom.common.WithNMediumBooms(4) ++                         // medium boom config
+  new chipyard.config.WithSystemBusWidth(128) ++
   new chipyard.config.AbstractConfig)
 
 class LargeBoomConfig extends Config(
