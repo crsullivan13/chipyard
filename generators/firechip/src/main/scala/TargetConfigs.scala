@@ -239,20 +239,8 @@ class FireSimQuadRocketConfig extends Config(
   new WithFireSimConfigTweaks ++
   new chipyard.QuadRocketConfig)
 
-class FireSimQuadRocket4BankConfig extends Config(
-  new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 4L) ++
-  new freechips.rocketchip.subsystem.WithNBanks(4) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(capacityKB = 1024, nWays = 16) ++
-  new FireSimQuadRocketConfig)
-
-class FireSimQuadRocket2BankConfig extends Config(
-  new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 4L) ++
-  new freechips.rocketchip.subsystem.WithNBanks(2) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(capacityKB = 1024, nWays = 16) ++
-  new FireSimQuadRocketConfig)
-//.
 class FsimSmBoom2BankConfig extends Config(
-  new freechips.rocketchip.subsystem.WithBRU(withMonitor = true) ++ 
+  new freechips.rocketchip.subsystem.WithBRU ++ 
   new freechips.rocketchip.subsystem.WithNBanks(2) ++
   new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=1024) ++
   new WithDefaultFireSimBridges ++
@@ -270,7 +258,7 @@ class FsimBoom2BankConfig extends Config(
   new chipyard.LargeBoomConfig)
 
 class FsimBoom4BankConfig extends Config(
-  new freechips.rocketchip.subsystem.WithBRU(nBanks=4) ++ 
+  new freechips.rocketchip.subsystem.WithBRU ++ 
   new freechips.rocketchip.subsystem.WithNBanks(4) ++
   new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=1024) ++
   new WithDefaultFireSimBridges ++
@@ -278,29 +266,8 @@ class FsimBoom4BankConfig extends Config(
   new WithFireSimConfigTweaks ++
   new chipyard.LargeBoomConfig)
 
-class FsimDualBoom4BankConfig extends Config(
-  new freechips.rocketchip.subsystem.WithBRU ++ 
-  new freechips.rocketchip.subsystem.WithNBanks(4) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=1024) ++
-  new WithDefaultFireSimBridges ++
-  new WithDefaultMemModel ++
-  new WithFireSimConfigTweaks ++
-  new chipyard.DualLargeBoomConfig)
-
-class FsimBoomDualConfig extends Config(
-  new WithDefaultFireSimBridges ++
-  new WithDefaultMemModel ++
-  new WithFireSimConfigTweaks ++
-  new chipyard.DualLargeBoomConfig)
-
-class FsimSmlBoomDualConfig extends Config(
-  new WithDefaultFireSimBridges ++
-  new WithDefaultMemModel ++
-  new WithFireSimConfigTweaks ++
-  new chipyard.DualSmallBoomConfig)
-
 class FsimMempressMax4Config extends Config(
-  new freechips.rocketchip.subsystem.WithBRU(nBanks=4) ++ 
+  new freechips.rocketchip.subsystem.WithBRU ++ 
   new freechips.rocketchip.subsystem.WithNBanks(4) ++
   new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=1024) ++
   new WithDefaultFireSimBridges ++
