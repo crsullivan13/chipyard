@@ -239,6 +239,12 @@ class FireSimQuadRocketConfig extends Config(
   new WithFireSimConfigTweaks ++
   new chipyard.QuadRocketConfig)
 
+class FireSimDualRocketConfig extends Config(
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimConfigTweaks ++
+  new chipyard.DualRocketConfig)
+
 class FireSimQuadRocket4BankConfig extends Config(
   new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 4L) ++
   new freechips.rocketchip.subsystem.WithNBanks(4) ++
@@ -250,34 +256,37 @@ class FireSimQuadRocket2BankConfig extends Config(
   new freechips.rocketchip.subsystem.WithNBanks(2) ++
   new freechips.rocketchip.subsystem.WithInclusiveCache(capacityKB = 1024, nWays = 16) ++
   new FireSimQuadRocketConfig)
-//.
+//
 
-class FsimMedBoom2BankDRAMConfig extends Config(
+//...
+class FsimDualBoomNOLLCDRAMConfig extends Config(
   new freechips.rocketchip.subsystem.WithDRAMBRU ++ 
-  new freechips.rocketchip.subsystem.WithNBanks(2) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=1024) ++
+  new freechips.rocketchip.WithBroadcastManager
   new WithDefaultFireSimBridges ++
   new WithDefaultMemModel ++
   new WithFireSimConfigTweaks ++
-  new chipyard.MediumBoomConfig)
+  new chipyard.DualLargeBoomConfig)
 
-class FsimQuadMedBoom2BankDRAMConfig extends Config(
+class FsimDualBoomDRAMConfig extends Config(
   new freechips.rocketchip.subsystem.WithDRAMBRU ++ 
   new freechips.rocketchip.subsystem.WithNBanks(2) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=1024) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(capacityKB = 1024, nWays = 16) ++
   new WithDefaultFireSimBridges ++
   new WithDefaultMemModel ++
   new WithFireSimConfigTweaks ++
-  new chipyard.QuadMediumBoomConfig)
+  new chipyard.DualLargeBoomConfig)
 
-class FsimSmBoom2BankDRAMConfig extends Config(
+class FsimDualRocketDRAMConfig extends Config(
   new freechips.rocketchip.subsystem.WithDRAMBRU ++ 
   new freechips.rocketchip.subsystem.WithNBanks(2) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=1024) ++
-  new WithDefaultFireSimBridges ++
-  new WithDefaultMemModel ++
-  new WithFireSimConfigTweaks ++
-  new chipyard.SmallBoomConfig)
+  new freechips.rocketchip.subsystem.WithInclusiveCache(capacityKB = 1024, nWays = 16) ++
+  new FireSimDualRocketConfig)
+
+class FsimDualRocketNoLLCDRAMConfig extends Config(
+  new freechips.rocketchip.subsystem.WithDRAMBRU ++ 
+  new chipyard.config.WithBroadcastManager ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(capacityKB = 1024, nWays = 16) ++
+  new FireSimDualRocketConfig)
 
 class FsimSmBoom2BankConfig extends Config(
   new freechips.rocketchip.subsystem.WithBRU(withMonitor = true) ++ 
