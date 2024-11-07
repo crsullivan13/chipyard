@@ -261,7 +261,7 @@ class FireSimQuadRocket2BankConfig extends Config(
 //...
 class FsimDualBoomNOLLCDRAMConfig extends Config(
   new freechips.rocketchip.subsystem.WithDRAMBRU ++ 
-  new freechips.rocketchip.WithBroadcastManager
+  new chipyard.config.WithBroadcastManager ++
   new WithDefaultFireSimBridges ++
   new WithDefaultMemModel ++
   new WithFireSimConfigTweaks ++
