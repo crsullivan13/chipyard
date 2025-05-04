@@ -11,6 +11,15 @@ class SmallBoomConfig extends Config(
   new chipyard.config.WithSystemBusWidth(128) ++
   new chipyard.config.AbstractConfig)
 
+class TriSmallBoomConfig extends Config(
+  new boom.common.WithNSmallBooms(3) ++                          // small boom config
+  new chipyard.config.WithSystemBusWidth(128) ++
+  new chipyard.config.AbstractConfig)
+
+class QuadSmallBoomConfig extends Config(
+  new boom.common.WithNSmallBooms(4) ++                          // small boom config
+  new chipyard.config.AbstractConfig)
+
 class MediumBoomConfig extends Config(
   new boom.common.WithNMediumBooms(1) ++                         // medium boom config
   new chipyard.config.WithSystemBusWidth(128) ++
@@ -37,6 +46,18 @@ class DualSmallBoomConfig extends Config(
 
 class DualLargeBoomConfig extends Config(
   new boom.common.WithNLargeBooms(2) ++                          // 2 boom cores
+  new chipyard.config.WithSystemBusWidth(128) ++
+  new chipyard.config.AbstractConfig)
+
+class ibarfLargeBoomConfig extends Config(
+  new barf.WithTLICachePrefetcher(barf.MultiNextLinePrefetcherParams()) ++
+  new boom.common.WithNLargeBooms(1) ++                          // 2 boom cores
+  new chipyard.config.WithSystemBusWidth(128) ++
+  new chipyard.config.AbstractConfig)
+
+class ibarfMegaBoomConfig extends Config(
+  new barf.WithTLICachePrefetcher(barf.MultiNextLinePrefetcherParams()) ++
+  new boom.common.WithNMegaBooms(1) ++                          // 2 boom cores
   new chipyard.config.WithSystemBusWidth(128) ++
   new chipyard.config.AbstractConfig)
 

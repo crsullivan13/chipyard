@@ -32,8 +32,16 @@ class SimAXIRocketConfig extends Config(
   new freechips.rocketchip.subsystem.WithNBigCores(1) ++
   new chipyard.config.AbstractConfig)
 
+class DualRocketConfig extends Config(
+  new freechips.rocketchip.subsystem.WithNBigCores(2) ++    // quad-core (4 RocketTiles)
+  new chipyard.config.AbstractConfig)
+
 class QuadRocketConfig extends Config(
   new freechips.rocketchip.subsystem.WithNBigCores(4) ++    // quad-core (4 RocketTiles)
+  new chipyard.config.AbstractConfig)
+
+class EightRocketConfig extends Config(
+  new freechips.rocketchip.subsystem.WithNBigCores(8) ++    // eight-core (8 RocketTiles)
   new chipyard.config.AbstractConfig)
 
 class Cloned64RocketConfig extends Config(
