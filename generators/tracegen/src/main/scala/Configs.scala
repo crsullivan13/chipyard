@@ -50,10 +50,10 @@ class WithTraceGen(
 })
 
 class WithBoomV3TraceGen(
-  n: Int = 2,
+  n: Int = 4,
   overrideMemOffset: Option[BigInt] = None)(
   params: Seq[DCacheParams] = List.fill(n){ DCacheParams(nMSHRs = 4, nSets = 16, nWays = 2) },
-  nReqs: Int = 8192
+  nReqs: Int = 8192 * 2
 ) extends Config((site, here, up) => {
   case TilesLocated(InSubsystem) => {
     val prev = up(TilesLocated(InSubsystem), site)
@@ -71,8 +71,8 @@ class WithBoomV3TraceGen(
             val nWays = dcp.nWays
             val blockOffset = site(SystemBusKey).blockOffset
             val nBeats = site(SystemBusKey).blockBeats
-            List.tabulate(nWays) { i =>
-              Seq.tabulate(nBeats) { j => BigInt((j * 8) + ((i * nSets) << blockOffset)) }
+            List.tabulate(nSets * 4) { i =>
+              Seq.tabulate(nWays * 4) { j => BigInt((j * 8) + ((i * nSets) << blockOffset)) }
             }.flatten
           },
           maxRequests = nReqs,

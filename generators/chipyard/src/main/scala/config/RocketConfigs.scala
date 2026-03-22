@@ -94,6 +94,12 @@ class PrefetchingRocketConfig extends Config(
   new freechips.rocketchip.subsystem.WithNBigCores(1) ++                               // single rocket-core
   new chipyard.config.AbstractConfig)
 
+class SimpleBARFRocketConfig extends Config(
+  new barf.WithHellaCachePrefetcher(Seq(0), barf.SingleStridedPrefetcherParams()) ++   // strided prefetcher, sits in front of the L1D$, monitors core requests to prefetching into the L1D$
+  new freechips.rocketchip.subsystem.WithNonblockingL1(2) ++                           // non-blocking L1D$, L1 prefetching only works with non-blocking L1D$
+  new freechips.rocketchip.subsystem.WithNBigCores(1) ++                               // single rocket-core
+  new chipyard.config.AbstractConfig)
+
 class ClusteredRocketConfig extends Config(
   new freechips.rocketchip.subsystem.WithNBigCores(4, location=InCluster(1)) ++
   new freechips.rocketchip.subsystem.WithNBigCores(4, location=InCluster(0)) ++

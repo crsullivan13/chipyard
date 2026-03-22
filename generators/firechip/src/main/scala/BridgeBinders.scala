@@ -123,6 +123,10 @@ class WithFASEDBridge extends HarnessBinder({
     val nastiKey = NastiParameters(port.io.bits.r.bits.data.getWidth,
                                    port.io.bits.ar.bits.addr.getWidth,
                                    port.io.bits.ar.bits.id.getWidth)
+    println(s"WithFASEDBridge: chipId=$chipId numMasters=${port.edge.master.masters.size}")
+    port.edge.master.masters.foreach { m =>
+      println(s"  AXI4 master: name=${m.name} id=${m.id} maxFlight=${m.maxFlight}")
+    }
     FASEDBridge(port.io.clock, port.io.bits, th.harnessBinderReset.asBool,
       CompleteConfig(th.p(firesim.configs.MemModelKey),
         nastiKey,

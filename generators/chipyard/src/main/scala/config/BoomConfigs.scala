@@ -8,11 +8,62 @@ import org.chipsalliance.cde.config.{Config}
 // ---------------------
 
 class SmallBoomV3Config extends Config(
-  new boom.v3.common.WithNSmallBooms(1) ++                          // small boom config
+  new boom.v3.common.WithNSmallBooms(4) ++                          // small boom config
+  new chipyard.config.WithSystemBusWidth(128) ++
+  new chipyard.config.AbstractConfig)
+
+class DualSmallBoomV3Config extends Config(
+  new boom.v3.common.WithNSmallBooms(2) ++                          // small boom config
+  new chipyard.config.WithSystemBusWidth(128) ++
   new chipyard.config.AbstractConfig)
 
 class MediumBoomV3Config extends Config(
   new boom.v3.common.WithNMediumBooms(1) ++                         // medium boom config
+  new chipyard.config.AbstractConfig)
+
+class MediumBoomBigV3Config extends Config(
+  new boom.v3.common.WithNMediumBoomsLargeFetchBuffer(1) ++         // medium boom config, larger frontend items to up bandwidth
+  new chipyard.config.WithSystemBusWidth(128) ++
+  new chipyard.config.AbstractConfig)
+
+class QuadMediumBoomBigV3Config extends Config(
+  new boom.v3.common.WithNMediumBoomsLargeFetchBuffer(4) ++         // medium boom config, larger frontend items to up bandwidth
+  new chipyard.config.WithSystemBusWidth(128) ++
+  new chipyard.config.AbstractConfig)
+
+class QuadMedBoom64Config extends Config(
+  new boom.v3.common.WithNMediumBoomsLargeFetchBuffer(4) ++         // medium boom config, larger frontend items to up bandwidth
+  new chipyard.config.WithSystemBusWidth(64) ++
+  new chipyard.config.AbstractConfig)
+
+//WithNMediumBoomsLargeFetchBufferMSHRS
+class QuadMedBoom64MSHRSConfig extends Config(
+  new boom.v3.common.WithNMediumBoomsLargeFetchBufferMSHRS(4) ++         // medium boom config, larger frontend items to up bandwidth
+  new chipyard.config.WithSystemBusWidth(128) ++
+  new chipyard.config.AbstractConfig)
+
+class QuadMedBoom6464Config extends Config(
+  new boom.v3.common.WithNMediumBoomsLargeFetchBuffer64(4) ++         // medium boom config, larger frontend items to up bandwidth
+  new chipyard.config.WithSystemBusWidth(64) ++
+  new chipyard.config.AbstractConfig)
+
+class QuadMedBoom32Config extends Config(
+  new boom.v3.common.WithNMediumBoomsLargeFetchBuffer(4) ++         // medium boom config, larger frontend items to up bandwidth
+  new chipyard.config.WithSystemBusWidth(32) ++
+  new chipyard.config.AbstractConfig)
+
+class SingleMediumBoomBigV3Config extends Config(
+  new boom.v3.common.WithNMediumBoomsLargeFetchBuffer(1) ++         // medium boom config, larger frontend items to up bandwidth
+  new chipyard.config.AbstractConfig)
+
+class DualMediumBoomBigV3Config extends Config(
+  new boom.v3.common.WithNMediumBoomsLargeFetchBuffer(2) ++         // medium boom config, larger frontend items to up bandwidth
+  new chipyard.config.WithSystemBusWidth(128) ++
+  new chipyard.config.AbstractConfig)
+
+class QuadMediumBoomV3Config extends Config(
+  new boom.v3.common.WithNMediumBooms(4) ++         // medium boom config
+  new chipyard.config.WithSystemBusWidth(128) ++
   new chipyard.config.AbstractConfig)
 
 class LargeBoomV3Config extends Config(
@@ -20,13 +71,19 @@ class LargeBoomV3Config extends Config(
   new chipyard.config.WithSystemBusWidth(128) ++
   new chipyard.config.AbstractConfig)
 
-class MegaBoomV3Config extends Config(
-  new boom.v3.common.WithNMegaBooms(1) ++                           // mega boom config
+class LargeBoomDualConfig extends Config(
+  new boom.v3.common.WithNLargeBooms(2) ++                          // large boom config
   new chipyard.config.WithSystemBusWidth(128) ++
   new chipyard.config.AbstractConfig)
 
-class DualSmallBoomV3Config extends Config(
-  new boom.v3.common.WithNSmallBooms(2) ++                          // 2 boom cores
+class LargeBoomQuadConfig extends Config(
+  new boom.v3.common.WithNLargeBooms(4) ++                          // large boom config
+  new chipyard.config.WithSystemBusWidth(128) ++
+  new chipyard.config.AbstractConfig)
+
+class MegaBoomV3Config extends Config(
+  new boom.v3.common.WithNMegaBooms(1) ++                           // mega boom config
+  new chipyard.config.WithSystemBusWidth(128) ++
   new chipyard.config.AbstractConfig)
 
 class Cloned64MegaBoomV3Config extends Config(
@@ -75,6 +132,11 @@ class SmallBoomV4Config extends Config(
 
 class MediumBoomV4Config extends Config(
   new boom.v4.common.WithNMediumBooms(1) ++                         // medium boom config
+  new chipyard.config.AbstractConfig)
+
+class DualMediumBoomV4Config extends Config(
+  new boom.v4.common.WithNMediumBooms(2) ++                         // medium boom config
+  new chipyard.config.WithSystemBusWidth(128) ++
   new chipyard.config.AbstractConfig)
 
 class LargeBoomV4Config extends Config(

@@ -63,7 +63,7 @@ class WithFireSimFAME5 extends Config((site, here, up) => {
 
 // FASED Config Aliases. This to enable config generation via "_" concatenation
 // which requires that all config classes be defined in the same package
-class DDR3FCFS extends FCFS16GBQuadRank
+// class DDR3FCFS extends FCFS16GBQuadRank
 class DDR3FRFCFS extends FRFCFS16GBQuadRank
 class DDR3FRFCFSLLC4MB extends FRFCFS16GBQuadRankLLC4MB
 
@@ -92,7 +92,7 @@ class WithMinimalFireSimDesignTweaks extends Config(
   new WithoutTLMonitors
 )
 
-// Non-frequency tweaks that are generally applied to all firesim configs
+// Non-frequency tweaks that are generally applied to all firesim configs..
 class WithFireSimDesignTweaks extends Config(
   new WithMinimalFireSimDesignTweaks ++
   // Required: Remove the debug clock tap, this breaks compilation of target-level sim in FireSim
@@ -109,7 +109,7 @@ class WithFireSimDesignTweaks extends Config(
   // Optional: Adds IO to attach tracerV bridges
   new chipyard.config.WithTraceIO ++
   // Optional: Request 16 GiB of target-DRAM by default (can safely request up to 64 GiB on F1)
-  new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 16L) ++
+  new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 4L) ++
   // Optional: Removing this will require using an initramfs under linux
   new testchipip.iceblk.WithBlockDevice
 )
@@ -122,18 +122,42 @@ class WithFireSimHighPerfClocking extends Config(
   // (since unspecified bus frequencies will use the pbus frequency)
   // This frequency selection matches FireSim's legacy selection and is required
   // to support 200Gb NIC performance. You may select a smaller value.
-  new chipyard.config.WithPeripheryBusFrequency(3200.0) ++
-  new chipyard.config.WithControlBusFrequency(3200.0) ++
-  new chipyard.config.WithSystemBusFrequency(3200.0) ++
-  new chipyard.config.WithFrontBusFrequency(3200.0) ++
-  new chipyard.config.WithControlBusFrequency(3200.0) ++
+  new chipyard.config.WithTileFrequency(2400.0) ++
+  new chipyard.config.WithPeripheryBusFrequency(2400.0) ++
+  new chipyard.config.WithControlBusFrequency(2400.0) ++
+  new chipyard.config.WithSystemBusFrequency(2400.0) ++
+  new chipyard.config.WithFrontBusFrequency(2400.0) ++
+  new chipyard.config.WithControlBusFrequency(2400.0) ++
   // Optional: These three configs put the DRAM memory system in it's own clock domain.
   // Removing the first config will result in the FASED timing model running
   // at the pbus freq (above, 3.2 GHz), which is outside the range of valid DDR3 speedgrades.
   // 1 GHz matches the FASED default, using some other frequency will require
   // runnings the FASED runtime configuration generator to generate faithful DDR3 timing values.
   new chipyard.config.WithMemoryBusFrequency(1000.0) ++
-  new chipyard.config.WithAsynchrousMemoryBusCrossing
+  new chipyard.config.WithSbusToMbusCrossingType(AsynchronousCrossing(depth = 32))
+)
+
+class WithFireSimDiffClocking extends Config(
+  // Create clock group for uncore that does not include mbus
+  new chipyard.clocking.WithClockGroupsCombinedByName(("uncore", Seq("sbus", "pbus", "fbus", "cbus", "implicit"), Seq("tile"))) ++
+  // Optional: This sets the default frequency for all buses in the system to 3.2 GHz
+  // (since unspecified bus frequencies will use the pbus frequency)
+  // This frequency selection matches FireSim's legacy selection and is required
+  // to support 200Gb NIC performance. You may select a smaller value.
+  new chipyard.config.WithTileFrequency(2400.0) ++
+  new chipyard.config.WithPeripheryBusFrequency(1200.0) ++
+  new chipyard.config.WithControlBusFrequency(1200.0) ++
+  new chipyard.config.WithSystemBusFrequency(1200.0) ++
+  new chipyard.config.WithFrontBusFrequency(1200.0) ++
+  new chipyard.config.WithControlBusFrequency(1200.0) ++
+  // Optional: These three configs put the DRAM memory system in it's own clock domain.
+  // Removing the first config will result in the FASED timing model running
+  // at the pbus freq (above, 3.2 GHz), which is outside the range of valid DDR3 speedgrades.
+  // 1 GHz matches the FASED default, using some other frequency will require
+  // runnings the FASED runtime configuration generator to generate faithful DDR3 timing values.
+  new chipyard.config.WithMemoryBusFrequency(1000.0) ++
+  new chipyard.config.WithSbusToMbusCrossingType(AsynchronousCrossing(depth = 32)) ++
+  new boom.v3.common.WithRationalBoomTiles // Add rational crossings between BoomTile and uncore
 )
 
 // Tweaks that are generally applied to all firesim configs setting a single clock domain at 1000 MHz
@@ -185,6 +209,13 @@ class WithFireSimHighPerfConfigTweaks extends Config(
   new WithFireSimDesignTweaks
 )
 
+// Tweaks for legacy FireSim configs.
+class WithFireSimDiffConfigTweaks extends Config(
+  new WithFireSimDiffClocking ++
+  new WithFireSimDesignTweaks
+)
+
+
 // Tweak more representative of testchip configs
 class WithFireSimTestChipConfigTweaks extends Config(
   // Frequency specifications
@@ -223,7 +254,32 @@ class FireSimRocketConfig extends Config(
   new WithDefaultMemModel ++
   new WithFireSimConfigTweaks ++
   new chipyard.RocketConfig)
-// DOC include end: firesimconfig
+// DOC include end: firesimconfig..
+
+class Dual645RocketConfig extends Config(
+  new freechips.rocketchip.subsystem.WithNBanks(1) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimConfigTweaks ++
+  new chipyard.DualRocketConfig)
+
+class FsimBARFRocketConfig extends Config(
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimConfigTweaks ++
+  new chipyard.SimpleBARFRocketConfig)
+
+class SingleRocketConfigPrefetch extends Config(
+  new freechips.rocketchip.subsystem.WithNBanks(1) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=1024) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimConfigTweaks ++
+  new barf.WithTLICachePrefetcher(barf.MultiNextLinePrefetcherParams()) ++
+  new chipyard.config.WithTilePrefetchers ++
+  new freechips.rocketchip.subsystem.WithNonblockingL1(4) ++
+  new chipyard.RocketConfig)
 
 class FireSimRocket1GiBDRAMConfig extends Config(
   new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 1L) ++
@@ -285,6 +341,114 @@ class FireSimLargeBoomConfig extends Config(
   new WithDefaultMemModel ++
   new WithFireSimConfigTweaks ++
   new chipyard.LargeBoomV3Config)
+
+class QuadMedBoomBigNoLLCConfig extends Config(
+  new chipyard.config.WithBroadcastManager ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimConfigTweaks ++
+  new chipyard.QuadMediumBoomBigV3Config)
+
+class SingleMedBoomBigConfig extends Config(
+  new freechips.rocketchip.subsystem.WithBRU ++
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512, outerLatencyCycles=100) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimConfigTweaks ++
+  new chipyard.MediumBoomBigV3Config)
+
+//.. MediumBoomBigV3Config..
+class QuadMedBoomBigConfig extends Config(
+  new freechips.rocketchip.subsystem.WithBRU ++
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512, outerLatencyCycles=100) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimConfigTweaks ++
+  new chipyard.QuadMediumBoomBigV3Config)
+
+class QuadMedBoomFastConfig extends Config(
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimHighPerfConfigTweaks ++
+  new chipyard.QuadMediumBoomBigV3Config)
+
+class QuadMedBoomBase64Config extends Config(
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimConfigTweaks ++
+  new chipyard.QuadMedBoom64MSHRSConfig)
+
+class QuadMedBoomDiff64Config extends Config(
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimDiffConfigTweaks ++
+  new chipyard.QuadMedBoom64Config)
+
+class QuadMedBoomDiff128Config extends Config(
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimDiffConfigTweaks ++
+  new chipyard.QuadMediumBoomBigV3Config)
+
+class QuadMedBoomFast128Config extends Config(
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimHighPerfConfigTweaks ++
+  new chipyard.QuadMediumBoomBigV3Config)
+
+class QuadMedBoomFast64Config extends Config(
+  //new freechips.rocketchip.subsystem.WithBRU ++ 
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimHighPerfConfigTweaks ++
+  new chipyard.QuadMedBoom64Config)
+
+class QuadMedBoomFast4Bank64Config extends Config(
+  //new freechips.rocketchip.subsystem.WithBRU ++ 
+  new freechips.rocketchip.subsystem.WithNBanks(4) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=256) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimHighPerfConfigTweaks ++
+  new chipyard.QuadMedBoom64Config)
+
+class QuadMedBoomFast6464Config extends Config(
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimHighPerfConfigTweaks ++
+  new chipyard.QuadMedBoom6464Config)
+
+class QuadMedBoomFast32Config extends Config(
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimHighPerfConfigTweaks ++
+  new chipyard.QuadMedBoom32Config)
+
+class QuadMedBoom1800MHz64Config extends Config(
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
+  new WithDefaultFireSimBridges ++
+  new WithDefaultMemModel ++
+  new WithFireSimTestChipConfigTweaks ++
+  new chipyard.QuadMedBoom64Config)
 
 //********************************************************************
 // Heterogeneous config, base off chipyard's LargeBoomAndRocketConfig

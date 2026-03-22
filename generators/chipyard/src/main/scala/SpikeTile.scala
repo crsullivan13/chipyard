@@ -115,6 +115,9 @@ class SpikeTile(
   val masterNode = visibilityNode
   val slaveNode = TLIdentityNode()
 
+  override val bwRegNode = None
+  override val accessNode = None
+
   override def isaDTS = "rv64imafdcv_zicsr_zifencei_zihpm_zvl128b_zve64d"
 
   // Required entry of CPU device in the device tree for interrupt purpose

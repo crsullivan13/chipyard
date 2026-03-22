@@ -121,6 +121,9 @@ class MyTile(
   val masterNode = visibilityNode
   val slaveNode = TLIdentityNode()
 
+  override val bwRegNode = None
+  override val accessNode = None
+
   // Implementation class (See below)
   override lazy val module = new MyTileModuleImp(this)
 

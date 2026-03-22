@@ -33,7 +33,8 @@ class NonBlockingTraceGenConfig extends Config(
   new AbstractTraceGenConfig)
 
 class BoomV3TraceGenConfig extends Config(
-  new tracegen.WithBoomV3TraceGen()(List.fill(2) { DCacheParams(nMSHRs = 8, nSets = 16, nWays = 2) }) ++
+  new tracegen.WithBoomV3TraceGen()(List.fill(4) { DCacheParams(nMSHRs = 8, nSets = 16, nWays = 2) }) ++
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
   new freechips.rocketchip.subsystem.WithInclusiveCache ++
   new AbstractTraceGenConfig)
 
