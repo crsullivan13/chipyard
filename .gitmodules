@@ -12,10 +12,10 @@
 	url = https://github.com/ucb-bar/caliptra-aes-acc.git
 [submodule "generators/constellation"]
 	path = generators/constellation
-	url = https://github.com/ucb-bar/constellation.git
+	url = https://github.com/crsullivan13/constellation
 [submodule "generators/cva6"]
 	path = generators/cva6
-	url = https://github.com/ucb-bar/cva6-wrapper.git
+	url = https://github.com/crsullivan13/cva6-wrapper
 [submodule "generators/diplomacy"]
 	path = generators/diplomacy
 	url = https://github.com/chipsalliance/diplomacy.git
@@ -30,7 +30,7 @@
 	url = https://github.com/ucb-bar/berkeley-hardfloat.git
 [submodule "generators/ibex"]
 	path = generators/ibex
-	url = https://github.com/ucb-bar/ibex-wrapper.git
+	url = https://github.com/crsullivan13/ibex-wrapper
 [submodule "generators/icenet"]
 	path = generators/icenet
 	url = https://github.com/firesim/icenet.git
@@ -42,7 +42,7 @@
 	url = https://github.com/ucb-bar/nvdla-wrapper.git
 [submodule "generators/riscv-sodor"]
 	path = generators/riscv-sodor
-	url = https://github.com/ucb-bar/riscv-sodor.git
+	url = https://github.com/crsullivan13/riscv-sodor
 [submodule "generators/rocc-acc-utils"]
 	path = generators/rocc-acc-utils
 	url = https://github.com/ucb-bar/rocc-acc-utils.git
@@ -57,10 +57,10 @@
 	url = https://github.com/chipsalliance/rocket-chip-inclusive-cache.git
 [submodule "generators/shuttle"]
 	path = generators/shuttle
-	url = https://github.com/ucb-bar/shuttle.git
+	url = https://github.com/crsullivan13/shuttle
 [submodule "generators/testchipip"]
 	path = generators/testchipip
-	url = https://github.com/ucb-bar/testchipip.git
+	url = https://github.com/crsullivan13/testchipip
 [submodule "sims/firesim"]
 	path = sims/firesim
 	url = https://github.com/firesim/firesim.git
