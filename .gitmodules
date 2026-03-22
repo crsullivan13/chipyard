@@ -75,7 +75,7 @@
 	url = https://github.com/embench/embench-iot.git
 [submodule "software/firemarshal"]
 	path = software/firemarshal
-	url = https://github.com/firesim/FireMarshal.git
+	url = https://github.com/crsullivan13/FireMarshal
 [submodule "software/nvdla-workload"]
 	path = software/nvdla-workload
 	url = https://github.com/ucb-bar/nvdla-workload.git
