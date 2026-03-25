@@ -6,10 +6,17 @@ print('Loading GDS...')
 
 try:
     # gdstk created SVG
-    import gdstk
+    #import gdstk
+    print("buh")
+    import gdspy
+    print("imported gdspy")
+    import tkinter
+    print("imported tkinter")
 except ImportError:
     try:
+        print("buh")
         import gdspy
+        print("imported gdspy")
         import tkinter
     except ImportError:
         print('Bad gdspy (requires tkinter) installation!')
