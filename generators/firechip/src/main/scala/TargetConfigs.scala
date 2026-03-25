@@ -342,15 +342,9 @@ class FireSimLargeBoomConfig extends Config(
   new WithFireSimConfigTweaks ++
   new chipyard.LargeBoomV3Config)
 
-class QuadMedBoomBigNoLLCConfig extends Config(
-  new chipyard.config.WithBroadcastManager ++
-  new WithDefaultFireSimBridges ++
-  new WithDefaultMemModel ++
-  new WithFireSimConfigTweaks ++
-  new chipyard.QuadMediumBoomBigV3Config)
-
+// RTAS 2026 configs
 class SingleMedBoomBigConfig extends Config(
-  new freechips.rocketchip.subsystem.WithBRU ++
+  new freechips.rocketchip.subsystem.WithBRU(nCores=1) ++
   new freechips.rocketchip.subsystem.WithNBanks(2) ++
   new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512, outerLatencyCycles=100) ++
   new WithDefaultFireSimBridges ++
@@ -358,97 +352,15 @@ class SingleMedBoomBigConfig extends Config(
   new WithFireSimConfigTweaks ++
   new chipyard.MediumBoomBigV3Config)
 
-//.. MediumBoomBigV3Config..
 class QuadMedBoomBigConfig extends Config(
-  new freechips.rocketchip.subsystem.WithBRU ++
+  new freechips.rocketchip.subsystem.WithBRU(nCores=4) ++
   new freechips.rocketchip.subsystem.WithNBanks(2) ++
   new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512, outerLatencyCycles=100) ++
   new WithDefaultFireSimBridges ++
   new WithDefaultMemModel ++
   new WithFireSimConfigTweaks ++
   new chipyard.QuadMediumBoomBigV3Config)
-
-class QuadMedBoomFastConfig extends Config(
-  new freechips.rocketchip.subsystem.WithNBanks(2) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
-  new WithDefaultFireSimBridges ++
-  new WithDefaultMemModel ++
-  new WithFireSimHighPerfConfigTweaks ++
-  new chipyard.QuadMediumBoomBigV3Config)
-
-class QuadMedBoomBase64Config extends Config(
-  new freechips.rocketchip.subsystem.WithNBanks(2) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
-  new WithDefaultFireSimBridges ++
-  new WithDefaultMemModel ++
-  new WithFireSimConfigTweaks ++
-  new chipyard.QuadMedBoom64MSHRSConfig)
-
-class QuadMedBoomDiff64Config extends Config(
-  new freechips.rocketchip.subsystem.WithNBanks(2) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
-  new WithDefaultFireSimBridges ++
-  new WithDefaultMemModel ++
-  new WithFireSimDiffConfigTweaks ++
-  new chipyard.QuadMedBoom64Config)
-
-class QuadMedBoomDiff128Config extends Config(
-  new freechips.rocketchip.subsystem.WithNBanks(2) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
-  new WithDefaultFireSimBridges ++
-  new WithDefaultMemModel ++
-  new WithFireSimDiffConfigTweaks ++
-  new chipyard.QuadMediumBoomBigV3Config)
-
-class QuadMedBoomFast128Config extends Config(
-  new freechips.rocketchip.subsystem.WithNBanks(2) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
-  new WithDefaultFireSimBridges ++
-  new WithDefaultMemModel ++
-  new WithFireSimHighPerfConfigTweaks ++
-  new chipyard.QuadMediumBoomBigV3Config)
-
-class QuadMedBoomFast64Config extends Config(
-  //new freechips.rocketchip.subsystem.WithBRU ++ 
-  new freechips.rocketchip.subsystem.WithNBanks(2) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
-  new WithDefaultFireSimBridges ++
-  new WithDefaultMemModel ++
-  new WithFireSimHighPerfConfigTweaks ++
-  new chipyard.QuadMedBoom64Config)
-
-class QuadMedBoomFast4Bank64Config extends Config(
-  //new freechips.rocketchip.subsystem.WithBRU ++ 
-  new freechips.rocketchip.subsystem.WithNBanks(4) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=256) ++
-  new WithDefaultFireSimBridges ++
-  new WithDefaultMemModel ++
-  new WithFireSimHighPerfConfigTweaks ++
-  new chipyard.QuadMedBoom64Config)
-
-class QuadMedBoomFast6464Config extends Config(
-  new freechips.rocketchip.subsystem.WithNBanks(2) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
-  new WithDefaultFireSimBridges ++
-  new WithDefaultMemModel ++
-  new WithFireSimHighPerfConfigTweaks ++
-  new chipyard.QuadMedBoom6464Config)
-
-class QuadMedBoomFast32Config extends Config(
-  new freechips.rocketchip.subsystem.WithNBanks(2) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
-  new WithDefaultFireSimBridges ++
-  new WithDefaultMemModel ++
-  new WithFireSimHighPerfConfigTweaks ++
-  new chipyard.QuadMedBoom32Config)
-
-class QuadMedBoom1800MHz64Config extends Config(
-  new freechips.rocketchip.subsystem.WithNBanks(2) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays=16, capacityKB=512) ++
-  new WithDefaultFireSimBridges ++
-  new WithDefaultMemModel ++
-  new WithFireSimTestChipConfigTweaks ++
-  new chipyard.QuadMedBoom64Config)
+// RTAS 2026 configs
 
 //********************************************************************
 // Heterogeneous config, base off chipyard's LargeBoomAndRocketConfig
