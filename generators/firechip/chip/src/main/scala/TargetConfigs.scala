@@ -86,7 +86,7 @@ class WithFireSimDesignTweaks extends Config(
   // Optional: Adds IO to attach tracerV bridges
   new chipyard.config.WithTraceIO ++
   // Optional: Request 16 GiB of target-DRAM by default (can safely request up to 64 GiB on F1)
-  new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 16L) ++
+  new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 4L) ++
   // Optional: Removing this will require using an initramfs under linux
   new testchipip.iceblk.WithBlockDevice
 )
@@ -251,6 +251,14 @@ class FireSimDmiRocketConfig extends Config(
 //*****************************************************************
 // Boom config, base off chipyard's LargeBoomV3Config
 //*****************************************************************
+class CBQRIDualBoomConfig extends Config(
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays = 16) ++
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new freechips.rocketchip.subsystem.WithPerBankLLC ++
+  new WithDefaultFireSimBridges ++
+  new WithFireSimConfigTweaks ++
+  new chipyard.DualMedBwBoomConfig)
+
 class FireSimLargeBoomConfig extends Config(
   new WithDefaultFireSimBridges ++
   new WithFireSimConfigTweaks ++
