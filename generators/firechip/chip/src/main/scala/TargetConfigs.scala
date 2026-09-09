@@ -254,7 +254,7 @@ class FireSimDmiRocketConfig extends Config(
 class CBQRIDualBoomConfig extends Config(
   new freechips.rocketchip.subsystem.WithInclusiveCache(nWays = 16) ++
   new freechips.rocketchip.subsystem.WithNBanks(2) ++
-  new freechips.rocketchip.subsystem.WithPerBankLLC ++
+  new freechips.rocketchip.subsystem.WithPerBankLLC(nRCID = 2, nMCID = 2) ++
   new WithDefaultFireSimBridges ++
   new WithFireSimConfigTweaks ++
   new chipyard.DualMedBwBoomConfig)
