@@ -256,6 +256,37 @@ class FireSimLargeBoomConfig extends Config(
   new WithFireSimConfigTweaks ++
   new chipyard.LargeBoomV3Config)
 
+class MedBoomBwConfig extends Config(
+  new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 4L) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache() ++
+  new WithDefaultFireSimBridges ++
+  new WithFireSimConfigTweaks ++
+  new chipyard.MedBwBoomConfig)
+
+class DualMedBoomConfig extends Config(
+  new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 4L) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache() ++
+  new WithDefaultFireSimBridges ++
+  new WithFireSimConfigTweaks ++
+  new chipyard.DualMedBoomV3Config)
+
+// Deterministic memory (ECRTS'18) evaluation target: 2x medium BOOM v3 with a
+// DM-capable L2.  Geometry is identical to DualMedBoomConfig (8 ways, 512 KB,
+// 1 bank => 1024 sets); only the replacement policy and control regs change.
+//class DualMedBoomDMConfig extends Config(
+//  new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 4L) ++
+//  new freechips.rocketchip.subsystem.WithDMInclusiveCache(nWays = 8) ++
+//  new WithDefaultFireSimBridges ++
+//  new WithFireSimConfigTweaks ++
+//  new chipyard.DualMedBoomV3Config)
+
+class MedBoomBwDualBankConfig extends Config(
+  new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 4L) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays = 16) ++
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new WithDefaultFireSimBridges ++
+  new WithFireSimConfigTweaks ++
+  new chipyard.MedBwBoomConfig)
 //*****************************************************************
 // Saturn configs, base off chipyard's SaturnConfigs
 //*****************************************************************
