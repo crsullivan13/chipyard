@@ -252,12 +252,20 @@ class FireSimDmiRocketConfig extends Config(
 // Boom config, base off chipyard's LargeBoomV3Config
 //*****************************************************************
 class CBQRIDualBoomConfig extends Config(
-  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays = 16) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays = 16, outerMSHRs = 12) ++
   new freechips.rocketchip.subsystem.WithNBanks(2) ++
   new freechips.rocketchip.subsystem.WithPerBankLLC(nRCID = 2, nMCID = 2) ++
   new WithDefaultFireSimBridges ++
   new WithFireSimConfigTweaks ++
   new chipyard.DualMedBwBoomConfig)
+
+class CBQRIQuadBoomConfig extends Config(
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays = 16, outerMSHRs = 24, nRCID = 4, nMCID = 4) ++
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new freechips.rocketchip.subsystem.WithPerBankLLC(nRCID = 4, nMCID = 4) ++
+  new WithDefaultFireSimBridges ++
+  new WithFireSimConfigTweaks ++
+  new chipyard.QuadMedBwBoomConfig)
 
 class FireSimLargeBoomConfig extends Config(
   new WithDefaultFireSimBridges ++
