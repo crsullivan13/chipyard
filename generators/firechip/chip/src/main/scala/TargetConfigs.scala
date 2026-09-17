@@ -256,9 +256,17 @@ class FireSimLargeBoomConfig extends Config(
   new WithFireSimConfigTweaks ++
   new chipyard.LargeBoomV3Config)
 
+class QuadMeBoomBwConfig extends Config(
+  new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 4L) ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays = 16, outerMSHRs = 24) ++
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new WithDefaultFireSimBridges ++
+  new WithFireSimConfigTweaks ++
+  new chipyard.QuadMedBwBoomConfig)
+
 class MedBoomBwConfig extends Config(
   new freechips.rocketchip.subsystem.WithExtMemSize((1 << 30) * 4L) ++
-  new freechips.rocketchip.subsystem.WithInclusiveCache() ++
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays = 16) ++
   new WithDefaultFireSimBridges ++
   new WithFireSimConfigTweaks ++
   new chipyard.MedBwBoomConfig)

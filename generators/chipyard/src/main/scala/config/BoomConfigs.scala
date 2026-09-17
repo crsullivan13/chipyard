@@ -11,6 +11,11 @@ class SmallBoomV3Config extends Config(
   new boom.v3.common.WithNSmallBooms(1) ++                          // small boom config
   new chipyard.config.AbstractConfig)
 
+class QuadMedBwBoomConfig extends Config(
+  new boom.v3.common.WithNMediumBoomsLargeFetchBuffer(4) ++        // medium boom config
+  new chipyard.config.WithSystemBusWidth(128) ++
+  new chipyard.config.AbstractConfig)
+
 class DualMedBwBoomConfig extends Config(
   new boom.v3.common.WithNMediumBoomsLargeFetchBuffer(2) ++        // medium boom config
   new chipyard.config.WithSystemBusWidth(128) ++
