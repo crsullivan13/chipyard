@@ -267,6 +267,14 @@ class CBQRIQuadBoomConfig extends Config(
   new WithFireSimConfigTweaks ++
   new chipyard.QuadMedBwBoomConfig)
 
+class MlpQuadBoomConfig extends Config(
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays = 16, outerMSHRs = 24, nRCID = 4, nMCID = 4) ++
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new freechips.rocketchip.subsystem.WithMlpController ++
+  new WithDefaultFireSimBridges ++
+  new WithFireSimConfigTweaks ++
+  new chipyard.QuadMedBwBoomConfig)
+
 class FireSimLargeBoomConfig extends Config(
   new WithDefaultFireSimBridges ++
   new WithFireSimConfigTweaks ++
