@@ -21,6 +21,8 @@ import firechip.bridgestubs._
 import firesim.lib.bridges.{FASEDBridge, CompleteConfig}
 import firesim.lib.nasti.{NastiIO, NastiParameters}
 
+import midas.targetutils.TriggerSink
+
 object MainMemoryConsts {
   val regionNamePrefix = "MainMemory"
   def globalName(chipId: Int) = s"${regionNamePrefix}_$chipId"
@@ -125,11 +127,18 @@ class WithFASEDBridge extends HarnessBinder({
                                    port.io.bits.ar.bits.id.getWidth)
     val nastiIo = Wire(new NastiIO(nastiParams))
     AXI4NastiAssigner.toNasti(nastiIo, port.io.bits)
-    FASEDBridge(port.io.clock, nastiIo, th.harnessBinderReset.asBool,
+    // TriggerSink annotates Module.clock by bare name, so it must be a local
+    // node in this module rather than a subfield of the port.
+    val fasedClock = WireDefault(port.io.clock)
+    dontTouch(fasedClock)
+    val trig = withClockAndReset(fasedClock, th.harnessBinderReset.asBool) {
+      val t = Wire(Bool()); TriggerSink(t, noSourceDefault = true.B); t
+    }
+    FASEDBridge(fasedClock, nastiIo, th.harnessBinderReset.asBool,
       CompleteConfig(
         nastiParams,
         Some(CreateAXI4EdgeSummary(port.edge)),
-        Some(MainMemoryConsts.globalName(chipId))))
+        Some(MainMemoryConsts.globalName(chipId))), trigger = trig)
   }
 })
 

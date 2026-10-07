@@ -99,11 +99,11 @@ class WithFireSimHighPerfClocking extends Config(
   // (since unspecified bus frequencies will use the pbus frequency)
   // This frequency selection matches FireSim's legacy selection and is required
   // to support 200Gb NIC performance. You may select a smaller value.
-  new chipyard.config.WithPeripheryBusFrequency(3200.0) ++
-  new chipyard.config.WithControlBusFrequency(3200.0) ++
-  new chipyard.config.WithSystemBusFrequency(3200.0) ++
-  new chipyard.config.WithFrontBusFrequency(3200.0) ++
-  new chipyard.config.WithControlBusFrequency(3200.0) ++
+  new chipyard.config.WithPeripheryBusFrequency(2400.0) ++
+  new chipyard.config.WithControlBusFrequency(2400.0) ++
+  new chipyard.config.WithSystemBusFrequency(2400.0) ++
+  new chipyard.config.WithFrontBusFrequency(2400.0) ++
+  new chipyard.config.WithControlBusFrequency(2400.0) ++
   // Optional: These three configs put the DRAM memory system in it's own clock domain.
   // Removing the first config will result in the FASED timing model running
   // at the pbus freq (above, 3.2 GHz), which is outside the range of valid DDR3 speedgrades.
@@ -265,6 +265,14 @@ class CBQRIQuadBoomConfig extends Config(
   new freechips.rocketchip.subsystem.WithPerBankLLC(nRCID = 4, nMCID = 4) ++
   new WithDefaultFireSimBridges ++
   new WithFireSimConfigTweaks ++
+  new chipyard.QuadMedBwBoomConfig)
+
+class CBQRIQuadBoomHighPerfConfig extends Config(
+  new freechips.rocketchip.subsystem.WithInclusiveCache(nWays = 16, outerMSHRs = 24, nRCID = 4, nMCID = 4) ++
+  new freechips.rocketchip.subsystem.WithNBanks(2) ++
+  new freechips.rocketchip.subsystem.WithPerBankLLC(nRCID = 4, nMCID = 4) ++
+  new WithDefaultFireSimBridges ++
+  new WithFireSimHighPerfConfigTweaks ++ 
   new chipyard.QuadMedBwBoomConfig)
 
 class MlpQuadBoomConfig extends Config(
